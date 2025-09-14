@@ -28,7 +28,7 @@ TVM has all above features.
 
 # The Overview of  Triton
 
-![image-20250914180419645](../assets/img/image-20250914180419645.png)
+![image-20250914191358770](https://raw.githubusercontent.com/Rhys-Q/mypic/img/picgo/image-20250914191358770.png)
 
 - Triton-C: A C-like frontend, however, we use python frontend now.
 - Triton-IR: An LLVM-based IR.
@@ -42,7 +42,7 @@ https://developer.nvidia.com/blog/cuda-refresher-cuda-programming-model/
 
 The execution of CUDA code on GPUs is supported by an SPMD programming model.
 
-![image-20250914180405469](../assets/img/image-20250914180405469.png)
+![image-20250914191422112](https://raw.githubusercontent.com/Rhys-Q/mypic/img/picgo/image-20250914191422112.png)
 
 ## Triton Programming Model
 
@@ -61,11 +61,11 @@ The program model of triton is SPMD + SIMD.
 
 In an program instance, we can use SIMD-style api to load, store and calculate, triton helps us to convert to cuda warp, thread operation.
 
-![image-20250914180351325](../assets/img/image-20250914180351325.png)
+![image-20250914191437456](https://raw.githubusercontent.com/Rhys-Q/mypic/img/picgo/image-20250914191437456.png)
 
 # Triton IR
 
-![image-20250914180330729](../assets/img/image-20250914180330729.png)
+![image-20250914191453236](https://raw.githubusercontent.com/Rhys-Q/mypic/img/picgo/image-20250914191453236.png)
 
 Triton IR is composed of one or multiple modules.
 
@@ -77,7 +77,7 @@ This header is followed by a body composed of a list of basic blocks whose inter
 
 triton use PSSA(Predicated SSA) form to support tiled-level control flow. 
 
-![image-20250914180249684](../assets/img/image-20250914180249684.png)
+![image-20250914191503146](https://raw.githubusercontent.com/Rhys-Q/mypic/img/picgo/image-20250914191503146.png)
 
 
 
@@ -86,8 +86,4 @@ triton use PSSA(Predicated SSA) form to support tiled-level control flow.
 
 
 # Numberical Experiments
-
-
-
-
 
