@@ -72,7 +72,18 @@ ninja.data = [{
               handler: () => {
                 window.location.href = "/blog/";
               },
-            },{id: "post-triton-paper",
+            },{id: "post-triton-tutorials",
+        
+          title: "triton tutorials",
+        
+        description: "triton tutorials",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2025/triton_tutorials/";
+          
+        },
+      },{id: "post-triton-paper",
         
           title: "triton paper",
         
