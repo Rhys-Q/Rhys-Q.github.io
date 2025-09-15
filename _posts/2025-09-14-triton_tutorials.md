@@ -75,3 +75,73 @@ Triton use `tl.arange`to implement SIMD-style parallel.
 
 Leetgpu: https://leetgpu.com/challenges/vector-addition
 
+
+
+# Fused Softmax
+
+The shape of X is [n_row, n_col]
+
+the number of programs is step, so every program deal n_row / step rows.
+
+```python
+row = tl.load(input_ptrs, mask=mask, other=-float('inf'))
+```
+
+note: `other` parameter means the value when mask = False.
+
+`num_stages` means pipeline parallelism.
+
+The block size of each loop iteration is the smallest power of two greater than the number of columns in `x`
+
+
+
+**how to decide the number of program?**
+
+1. get the resources needed by every program
+
+```python
+kernel = softmax_kernel.warmup(y, x, x.stride(0), y.stride(0), n_rows, n_cols, BLOCK_SIZE=BLOCK_SIZE, num_stages=num_stages, num_warps=num_warps, grid=(1, ))
+kernel._init_handles()
+n_regs = kernel.n_regs
+size_smem = kernel.metadata.shared
+...
+occupancy = NUM_REGS // (n_regs * WARP_SIZE * num_warps)
+occupancy = min(occupancy, SIZE_SMEM // size_smem)
+num_programs = NUM_SM * occupancy
+num_programs = min(num_programs, n_rows)
+```
+
+there are two kinds of resource:
+
+- shared memory (L1 Cache)
+- registers
+
+2. Divide the system resources by the resources required by the program, and take the minimum value.
+
+|               | System resources  | Need by every program                                        |
+| ------------- | ----------------- | ------------------------------------------------------------ |
+| Register      | NUM_SM* NUM_REGS  | n_regs * WARP_SIZE * num_warps (a program is a thread-block in coda, every thread-block has WARP_SIZE * num_warps threads, and a thread need n_regs regs) |
+| shared memory | NUM_SM* SIZE_SMEM | size_smem (all threads in a thread-block share the same shared-memory) |
+
+![image-20250915234227016](https://raw.githubusercontent.com/Rhys-Q/mypic/img/picgo/image-20250915234227016.png)
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
