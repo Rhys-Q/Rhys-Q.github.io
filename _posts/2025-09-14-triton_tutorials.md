@@ -127,21 +127,28 @@ there are two kinds of resource:
 
 
 
+# Matrix Mutiplication
+
+![image-20250917002724000](https://raw.githubusercontent.com/Rhys-Q/mypic/img/picgo/image-20250917002724000.png)
+
+```
+# `triton.jit`'ed functions can be auto-tuned by using the `triton.autotune` decorator, which consumes:
+#   - A list of `triton.Config` objects that define different configurations of
+#       meta-parameters (e.g., `BLOCK_SIZE_M`) and compilation options (e.g., `num_warps`) to try
+#   - An auto-tuning *key* whose change in values will trigger evaluation of all the
+#       provided configs
+@triton.autotune(
+    configs=get_autotune_config(),
+    key=['M', 'N', 'K'],
+)
+```
+
+```python
+a_ptrs = a_ptr + (offs_am[:, None] * stride_am + offs_k[None, :] * stride_ak)
+```
+
+the shape of `offs_am[:, None]` is [BLOCK_SIZE_M, 1], while the shape of `offs_k[None, :]`is [1, BLOCK_SIZE_N].
+
+so after broadcasting, the shape of `a_ptrs` is [BLOCK_SIZE_M, BLOCK_SIZE_N].
+
  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
