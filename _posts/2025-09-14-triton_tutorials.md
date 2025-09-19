@@ -1,10 +1,12 @@
 ---
-layout: post
+layout: distill
 title: triton tutorials
 date: 2025-09-14 00:00:00-0000
 description: triton tutorials
 tags: hpc kernel triton
+giscus_comments: true
 categories: hpc
+featured: true
 related_posts: false
 ---
 
@@ -118,10 +120,10 @@ there are two kinds of resource:
 
 2. Divide the system resources by the resources required by the program, and take the minimum value.
 
-|               | System resources  | Need by every program                                        |
-| ------------- | ----------------- | ------------------------------------------------------------ |
+|               | System resources  | Need by every program                                                                                                                                     |
+| ------------- | ----------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Register      | NUM_SM* NUM_REGS  | n_regs * WARP_SIZE * num_warps (a program is a thread-block in coda, every thread-block has WARP_SIZE * num_warps threads, and a thread need n_regs regs) |
-| shared memory | NUM_SM* SIZE_SMEM | size_smem (all threads in a thread-block share the same shared-memory) |
+| shared memory | NUM_SM* SIZE_SMEM | size_smem (all threads in a thread-block share the same shared-memory)                                                                                    |
 
 ![image-20250915234227016](https://raw.githubusercontent.com/Rhys-Q/mypic/img/picgo/image-20250915234227016.png)
 
@@ -141,9 +143,6 @@ there are two kinds of resource:
     configs=get_autotune_config(),
     key=['M', 'N', 'K'],
 )
-```
-
-```python
 a_ptrs = a_ptr + (offs_am[:, None] * stride_am + offs_k[None, :] * stride_ak)
 ```
 
@@ -210,13 +209,14 @@ print(
 
 Triton already support random!
 
+# Layer Normalization
 
 
 
 
 
-
-
-
-
+$$
+y = \frac{x-E[x]}{\sqrt{Var(x)+\epsilon}} * w +b
+$$
+one block deal one row!
 
