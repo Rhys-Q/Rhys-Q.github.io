@@ -212,6 +212,10 @@ Triton already support random!
 # Layer Normalization
 
 
+# Layer Normalization
+
+
+
 
 
 
