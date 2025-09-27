@@ -72,7 +72,18 @@ ninja.data = [{
               handler: () => {
                 window.location.href = "/blog/";
               },
-            },{id: "post-triton-tutorials",
+            },{id: "post-cutlass-cute",
+        
+          title: "cutlass cute",
+        
+        description: "cutlass cute",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2025/cutlass_cute/";
+          
+        },
+      },{id: "post-triton-tutorials",
         
           title: "triton tutorials",
         
